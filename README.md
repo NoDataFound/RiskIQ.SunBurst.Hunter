@@ -1,4 +1,5 @@
-![](https://raw.githubusercontent.com/NoDataFound/RiskIQ.SunBurst.Hunter/master/images/Main.png)
+![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/Main.png)
+
 
 SunBurst Hunter 
 ===================
@@ -79,21 +80,21 @@ All menu selections provide addtional instruction.
 
 
 # Sample Output
-![](https://raw.githubusercontent.com/NoDataFound/RiskIQ.SunBurst.Hunter/master/images/find_from_dga.png)
+![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/find_from_dga.png)
 
 
 # Useage Examples
 
 ### Hostname search
 
-![](https://raw.githubusercontent.com/NoDataFound/RiskIQ.SunBurst.Hunter/master/images/Hostname_Search.gif)
+![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/Hostname_Search.gif)
 
 ### File Upload
 
-![](https://raw.githubusercontent.com/NoDataFound/RiskIQ.SunBurst.Hunter/master/images/File_Search.gif)
+![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/File_Search.gif)
 
 ### Fieldname Search
-![](https://raw.githubusercontent.com/NoDataFound/RiskIQ.SunBurst.Hunter/master/images/Fieldname_Search.gif)
+![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/Fieldname_Search.gif)
 
 #### Legal disclaimer:
 Usage of RiskIQ.Sunburst.Hunter.py is at your own risk. Developers assume no liability and are not responsible for any misuse or damage caused by this program. Only use for educational purposes.
