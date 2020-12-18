@@ -4,7 +4,7 @@
 SunBurst Hunter 
 ===================
 
-![](https://img.shields.io/badge/@CoryKennedy-SunBurst%7CResearch-blue)
+![](https://img.shields.io/badge/@CoryKennedy-SunBurst%7CResearch-blue) ![](https://img.shields.io/badge/Python->3.8.6-red)
 
 Introduction
 ------------
