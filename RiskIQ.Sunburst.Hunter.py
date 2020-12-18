@@ -11,7 +11,7 @@ import os
 import time
 import sys
 from prompt_toolkit import prompt
-from prompt_toolkit.contrib.completers import WordCompleter
+from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.styles import Style
 
 class style():
