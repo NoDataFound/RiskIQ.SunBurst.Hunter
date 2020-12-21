@@ -97,4 +97,4 @@ All menu selections provide addtional instruction.
 ![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/Fieldname_Search.gif)
 
 #### Legal disclaimer:
-Usage of RiskIQ.Sunburst.Hunter.py is at your own risk. Developers assume no liability and are not responsible for any misuse or damage caused by this program. Only use for educational purposes.
+Usage of RiskIQ.Sunburst.Hunter.py is at your own risk. Developers assume no liability and are not responsible for any misuse or damage caused by this program. Only use for educational purposes. This tool was not developed by RiskIQ and offers no support.
