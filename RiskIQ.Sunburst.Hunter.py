@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #RiskIQ script to interact with the passivetotal API to hunt for hosts impacted by Sunburst
-#API Documentation: https://api.riskiq.net/api/articles/
+#API Documentation: https://api.riskiq.net/api/
 #author__ = 'Cory Kennedy (cory@riskiq.com)'
 #version__ = '1.0.0'
 import requests
@@ -15,6 +15,7 @@ from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.styles import Style
 
 class style():
+    BLINK = "\033[5m"
     BLACK = '\033[30m'
     FAIL = '\033[91m'
     LRED='\033[93m'
@@ -50,39 +51,67 @@ class style():
 
 
 class RiskIQ_Sunburst_Finder():
-    def __init__(self,username, key):
+    def __init__(self,username, key ):
         self.username = username
         self.key = key
         self.headers = {'Content-Type': 'application/json'}
-
-          
+        
          
     def show_menu(self): 
-        print('\n')
-        print (style.BCYAN+"  +----------------------------------------------------------------+")   
-        print (style.BCYAN+"  |"+style.BOLD+style.FAIL+"   .______       __       _______. __  ___  __    ______      "+style.BCYAN+"  |"+style.RESET)
-        print (style.BCYAN+"  |"+style.BOLD+style.FAIL+"   |   _  \     |  |     /       ||  |/  / |  |  /  __  \     "+style.BCYAN+"  |"+style.RESET)
-        print (style.BCYAN+"  |"+style.FAIL+"   |  |_)  |    |  |    |   (----`|  '  /  |  | |  |  |  |    "+style.BCYAN+"  |"+style.RESET)
-        print (style.BCYAN+"  |"+style.YELLOW+"   |      /     |  |     \   \    |    <   |  | |  |  |  |    "+style.BCYAN+"  |"+style.RESET)  
-        print (style.BCYAN+"  |"+style.YELLOW+"   |  |\  \----.|  | .----)   |   |  .  \  |  | |  `--'  '--. "+style.BCYAN+"  |"+style.RESET)
-        print (style.BCYAN+"  |"+style.WHITE+"   | _| `._____||__| |_______/    |__|\__\ |__|  \_____\_"+style.WARNING+style.UNDERLINE+"API"+style.WHITE+"_|"+style.RESET+style.BCYAN+"  |"+style.RESET)
-        print (style.BCYAN+"  |"+style.BCYAN+"                                             "+style.YELLOW+"  "+style.YELLOW+"Sun"+style.FAIL+"BURST "+style.WHITE+"Hunter"+style.BCYAN+"  |"+style.RESET)                         
-        print (style.RESET+style.BLUE+"  |⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"+style.RESET+style.WHITE+"MENU"+style.BLUE+"⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿|")
-        print (style.RESET+style.BLUE+"  ⣿"+style.UNDERLINE+style.YELLOW+" ° Sun"+style.FAIL+"BURST"+style.WHITE+"Hunter"+style.BLUE+style.UNDERLINE+"                                              "+style.RESET+style.BLUE+" ⣿")    
-        print (style.RESET+style.BLUE+"  ⣿                                                                ⣿")
-        print (style.BOLD+style.GREEN+"1"+style.BLUE +" ⣿", style.RESET+style.BLUE+"   ["+style.GREEN+"Keyword"+style.RESET+style.BLUE+"]", style.RESET+style.WHITE+"- SSL Certificate Keyword or Hostname Search "+style.BLUE+   "     ⣿")
-        print (style.RESET+style.BOLD+style.GREEN+style.UNDERLINE+"2"+style.RESET+style.BLUE+ " ⣿", "   ["+style.GREEN+"File Upload"+style.RESET+style.BLUE+"]", style.RESET+style.WHITE+"- Upload list of hostnames to search "+style.RESET   +style.BLUE+ "         ⣿")
-        print (style.RESET+style.BLUE+"  ⣿                                                                ⣿")
-        print (style.RESET+style.BLUE+"  ⣿"+style.UNDERLINE+style.CYAN+" ° SSL Certficate Extras"+"                                        "+style.RESET+style.BLUE+"⣿")
-        print (style.RESET+style.BLUE+"  ⣿                                                                ⣿")
-        print (style.BOLD+style.CYAN+"3"+style.BLUE +" ⣿", style.RESET+style.BLUE+"   ["+style.CYAN+"Fieldname"+style.RESET+style.BLUE+"]", style.RESET+style.WHITE+"- SSL Certificate Fieldname Search "+style.BLUE+   "             ⣿")
-        print (style.RESET+style.BLUE+"  ⣿                                                                ⣿")
-        print (style.BOLD+style.YELLOW+style.UNDERLINE+"Q"+style.RESET+style.BLUE+ " ⣿", style.RESET+style.YELLOW+"° Q"+style.RESET+style.WHITE+"uit"+style.RESET+style.BLUE+ "                                                         ⣿")
-        print (style.BLUE+"  ⣿   "+style.CYAN+style.UNDERLINE+"                     "+style.RESET+style.BLUE+"                                        ⣿")
-        print (style.BLUE+"  "+style.UNDERLINE+"+⣿⣿⣿"+style.BOLD+style.CYAN+style.UNDERLINE+"| Search History[5] |"+style.BLUE+"⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿+")
+        print (style.CYAN+'''  
+                                                                                                                               
+                                   `.-----..`                                   
+                          `-/oydmNMMMMMMMMMMMNNmhso/.                           
+                      -+ymMMMMMMMMMMMMMMMMMMMMMMMMMMMNds/.                      
+                  .+hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNms:`                  
+               .+hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNMMMMMMMMMMMNy:                
+             -yNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd.:odMMMMMMMMMMMMmo.             
+           :hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMh`   hMMMMMMMMMMMMMMNs.           
+         -hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMy`   /NMMMMMMMMMMMMMMMMNo`         
+       `sNMMMMMMMMMMMm+mMMMMMMMMMMNdMMMMMMMMo`   /NMMMMohMMMMMMMNmmdmNm/        
+      -dNNMMMMMMMMMMN: .dMMMMMMMd+-sMMMMMMMo    +NMMMMo `sMMNds:..```.:ss`      
+     /Nm-:syyyyyyyyd:   hMMMMNy:` -sMMMMMN/   `/y++NMo   /Mh:`     `.:/:sd.''')     
+        print (style.MAGENTA+'''    +Nm-        `.o+   .mMMmo-   `sNMMMMm:    ``  -md`   ss`    :shmNmo:/mm-    
+   /MN:   ://+sydmy++--hNd+.   `/dNMMMMm-       `-sdo+:-oh`   `sNMMMMMm. :mm.   
+  -NN:   /NMMMMMN+` `/ho-`     .::::sMm-     `-+hNy. `-dMo    sMMMmy+dM+  :Nd`  
+ `mN+   /NMMMMMM+   `o.             .d-   `  `hMMh`   /NMy    yMMy`  .y.  -NMs  
+ oMo   :mMMMMMMm`  `sMs...-::-`   `/h:   oy`  :NM:   /NMMN/   `+hh.   `  .dMMM-''') 
+        print (style.RED+"`NN.  :mMMMMMMM+  `yMMMNmNms-  `-odN/  `oMMh`  yh   +NMMMMN+`    .`     :dMMMMh") 
+        print (style.RED+"+Mh  /NMMMMMMMMo `hMMMMMNs-  .+hNMMo  `sMMMMo` -h. +NMMMMMMMdo-.`````  `hMMMMMM.")
+        print (style.RED+"hMM++NMMMMMMMMMM+yMMMMms-  -smMMMMo  `yMMMMMMm+-hyoNMMMMMMMMMMMmddddd- `hMMMMMM/")
+        print (style.RED+"NMMMMMMMMMMMMMMMMMMMMy. `:yNMMMMMd  .hMMMMMMMMMdhMMMMMMMMMMMMMMMMMMMMm/sMMMMMMMs")
+        print (style.RED+"+                     ``-:          ./")
+        print (style.RED+"+ooooooooooooooooooo-`.+oooooooooo/.ooooooooooooooooooooooooooooooooooooooooooo/")
+        print (style.CYAN+'+----------------+:.:+--------------------------------------------------------+')   
+        print (style.BCYAN+"|"+style.BOLD+style.MAGENTA+"         ██████╗ ██╗███████╗██╗  ██╗██╗ ██████╗       "+style.BCYAN+ style.YELLOW+"Sun"+style.FAIL+"BURST "+style.WHITE+"Hunter"+style.BCYAN+"        |"+style.RESET)
+        print (style.BCYAN+"|"+style.BOLD+style.MAGENTA+"         ██╔══██╗██║██╔════╝██║ ██╔╝██║██╔═══██╗   "+style.BCYAN+"         ________         |"+style.RESET)
+        print (style.BCYAN+"|"+style.BLUE+"         ██████╔╝██║███████╗█████╔╝ ██║██║   ██║  "+style.BCYAN+"    ___  _\_____  \        |"+style.RESET)
+        print (style.BCYAN+"|"+style.BLUE+"         ██╔══██╗██║╚════██║██╔═██╗ ██║██║▄▄ ██║  "+style.BCYAN+"    \  \/ //  ____/        |"+style.RESET)  
+        print (style.BCYAN+"|"+style.CYAN+"         ██║  ██║██║███████║██║  ██╗██║╚██API█╔╝ "+style.BCYAN+"      \   //       \        |"+style.RESET)
+        print (style.BCYAN+"|"+style.CYAN+"         ╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝╚═╝ ╚══▀▀═╝ "+style.RESET+style.BCYAN+"        \_/ \_______ \       |"+style.RESET)
+        print (style.BCYAN+"|"+style.BCYAN+"                                                                    \/       |"+style.RESET)                         
+        print (style.RESET+style.BLUE+"|░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▓█"+style.RESET+style.WHITE+" MENU "+style.BLUE+"█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░|")
+        print (style.RESET+style.BLUE+"⣿"+style.UNDERLINE+style.YELLOW+" ° Sun"+style.FAIL+"BURST"+style.WHITE+"Hunter"+style.BLUE+style.UNDERLINE+"                                                            "+style.RESET+style.BLUE+"⣿")    
+        print (style.RESET+style.BLUE+"⣿                                                                             ⣿")
+        print (style.BOLD+style.GREEN+"①"+style.BLUE +" ", style.RESET+style.BLUE+"   ["+style.GREEN+"Keyword"+style.RESET+style.BLUE+"]", style.RESET+style.WHITE+"- SSL Certificate Keyword or Hostname Search "+style.BLUE+   "                 ⣿")
+        print (style.RESET+style.BOLD+style.GREEN+"②"+style.RESET+style.BLUE+ " ", "   ["+style.GREEN+"File Upload"+style.RESET+style.BLUE+"]", style.RESET+style.WHITE+"- Upload list of hostnames to search "+style.RESET   +style.BLUE+ "                     ⣿")
+        print (style.RESET+style.BLUE+"⣿                                                                             ⣿")
+        print (style.RESET+style.BLUE+"⣿"+style.UNDERLINE+style.CYAN+" ° SSL Certficate Extras"+"                                                     "+style.RESET+style.BLUE+"⣿")
+        print (style.RESET+style.BLUE+"⣿                                                                             ⣿")
+        print (style.BOLD+style.CYAN+"③"+style.BLUE +" ", style.RESET+style.BLUE+"   ["+style.CYAN+"Fieldname"+style.RESET+style.BLUE+"]", style.RESET+style.WHITE+"- SSL Certificate Fieldname Search "+style.BLUE+   "                         ⣿")
+        print (style.RESET+style.BLUE+"⣿                                                                             ⣿")
+        print (style.RESET+style.BLUE+"⣿"+style.UNDERLINE+style.GREEN+" RiskIQ SunBurst Threat Intelligence"+"                                         "+style.RESET+style.BLUE+"⣿")
+        print (style.RESET+style.BLUE+"⣿   https://community.riskiq.com/article/b5b13e5d                             ⣿")
+        print (style.RESET+style.BLUE+"⣿   https://community.riskiq.com/article/c98949a2                             ⣿")
+        print (style.RESET+style.BLUE+"⣿   https://community.riskiq.com/article/a786a113                             ⣿")
+        print (style.RESET+style.BLUE+"⣿   https://community.riskiq.com/article/a58a63e9                             ⣿")
+        print (style.RESET+style.BLUE+"⣿                                                                             ⣿")
+        print (style.YELLOW+"Ⓠ"+style.RESET+style.BLUE+ " ", style.RESET+style.YELLOW+"° Q"+style.RESET+style.WHITE+"uit"+style.RESET+style.BLUE+ "                                                                     ⣿")
+        print (style.BLUE+"⣿   "+style.CYAN+style.UNDERLINE+"                     "+style.RESET+style.BLUE+"                                                     ⣿")
+        print (style.BLUE+"+▒▓█"+style.CYAN+style.UNDERLINE+"► Search History[5] ◄"+style.RESET+style.BLUE+"█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░+")
         for root, dirs, files in os.walk("output/"):
             for dirs in dirs[:5]:
-                print (style.RESET+style.CYAN+"         "+dirs)
+                print (style.RESET+style.CYAN+"   "+dirs)
 
     
     def sunburst_field(self):
@@ -120,13 +149,14 @@ class RiskIQ_Sunburst_Finder():
     def sunburst_key(self):
         search = input(style.RESET+style.CYAN+'[SSL|Keyword]'+style.RESET+style.CYAN+' Enter search terms: '+style.WHITE).strip('\n')
         data = {"query": search}
+        whitelist = open('whitelists/whitelist.txt', 'r')
+        sunlist = open('whitelists/sunlist.txt', 'r')
         url = ('https://api.passivetotal.org/v2/ssl-certificate/search/keyword?sort=firstSeen&order=asc')
         r = requests.get(url,  headers=self.headers, auth=(self.username, self.key), data=json.dumps(data))
         response = json.loads(r.text)
         os.makedirs("output/"+search, exist_ok=True)
-
         string = '''
-                                  *Processing Search*
+                                *Processing Search*
 
                                        RiskIQ
                                //THREAT*INTELLIGENCE''                                         
@@ -156,10 +186,10 @@ class RiskIQ_Sunburst_Finder():
             print(style.BLUE+char, end='')
             time.sleep(.0025)
         print('\n')     
-        print(style.HACKER+style.GREEN+"Still Processing... Please hold")
+        print(style.GREEN+"Still Processing... Please hold")
         print('\n')    
         print(style.YELLOW+"    NOTE: Full results have been saved to " + ".output/"+search+"/"+search +".json'\n")       
-        
+        print('\n')
         for focus in response['results']:
             search2 = focus['focusPoint']
             #for line in search2:
@@ -187,18 +217,34 @@ class RiskIQ_Sunburst_Finder():
                 jsonout.write(json.dumps(response, indent=4, sort_keys=True))
                 jsonout.write("],")
             for ip in response['results']:
-                match = ip['ipAddresses']
-                for value in match:
-                    data = {"query": value}
-                    url = ('https://api.passivetotal.org/v2/host-attributes/components')
-                    r = requests.get(url,  headers=self.headers, auth=(self.username, self.key), data=json.dumps(data))
-                    response = json.loads(r.text)
-                    jsonout = open("output/"+search+"/"+search+".json", "a")
-                    jsonout.write('\n')
-                    jsonout.write(  '"components": [')
-                    jsonout.write('\n')
-                    jsonout.write(json.dumps(response, indent=4, sort_keys=True))
-                    jsonout.write("],")
+                with open('whitelists/whitelist.txt', 'r') as f:
+                    iocline = [line.rstrip() for line in f]
+                    match = ip['ipAddresses']
+                    if ip not in iocline:
+                        for value in match:
+                            data = {"query": value}
+                            url = ('https://api.passivetotal.org/v2/host-attributes/components')
+                            r = requests.get(url,  headers=self.headers, auth=(self.username, self.key), data=json.dumps(data))
+                            response = json.loads(r.text)
+                            jsonout = open("output/"+search+"/"+search+".json", "a")
+                            jsonout.write('\n')
+                            jsonout.write(  '"components": [')
+                            jsonout.write('\n')
+                            jsonout.write(json.dumps(response, indent=4, sort_keys=True))
+                            jsonout.write("],")
+                        for sunmatch in response['results']:
+                            with open('whitelists/sunlist.txt', 'r') as f:
+                                sunline = [line.rstrip() for line in f]
+                                suncomp = sunmatch['label']
+                                sunaddress = sunmatch['address']
+                                if suncomp in sunline:
+                                    print(style.UNDERLINE+style.CYAN+'!!!Potential SolarWinds Orion Sunburst item found!!! Logging to results.')
+                                    print(style.RESET+style.GREEN+'[IP] '+style.WHITE+ sunaddress+style.GREEN+' [Component] '+style.FAIL+suncomp+style.RESET )
+                                    jsonout = open("output/"+search+"/"+search+".json", "a")
+                                    jsonout.write('\n')
+                                    jsonout.write('Potential SolarWinds Orion Sunburst item found!')
+                                    
+
         print(style.GREEN+"     Here is a sample of what we found!")    
         print("         "+style.WHITE+json.dumps(response, indent=4, sort_keys=True))
         print(style.RESET)        
@@ -206,6 +252,8 @@ class RiskIQ_Sunburst_Finder():
         
             
     def sunburst_file(self):
+        whitelist = open('whitelists/whitelist.txt', 'r')
+        sunlist = open('whitelists/sunlist.txt', 'r')
         fupload = input(style.RESET+style.CYAN+'[File Upload]'+style.RESET+style.CYAN+' Enter filename: '+style.WHITE).strip('\n')
         with open(fupload) as f:
             line = [line.rstrip() for line in f]
@@ -226,7 +274,8 @@ class RiskIQ_Sunburst_Finder():
             r = requests.get(url,  headers=self.headers, auth=(self.username, self.key), data=json.dumps(data))
             response = json.loads(r.text)
             os.makedirs("output/"+search, exist_ok=True)        
-            print(style.YELLOW+"    NOTE: Full results have been saved to " + style.UNDERLINE+style.CYAN+".output/"+search+"/"+search +".json'"+style.RESET)       
+            print(style.YELLOW+"    NOTE: Full results have been saved to " + style.UNDERLINE+style.CYAN+".output/"+search+"/"+search +".json'"+style.RESET)
+            print('\n')       
             for focus in response['results']:
                 search2 = focus['focusPoint']
                 #for line in search2:
@@ -254,17 +303,32 @@ class RiskIQ_Sunburst_Finder():
                     jsonout.write(json.dumps(response, indent=4, sort_keys=True))
                     jsonout.write("],")
                 for ip in response['results']:
-                    match = ip['ipAddresses']
-                    for value in match:
-                        data = {"query": value}
-                        url = ('https://api.passivetotal.org/v2/host-attributes/components')
-                        r = requests.get(url,  headers=self.headers, auth=(self.username, self.key), data=json.dumps(data))
-                        response = json.loads(r.text)
-                        jsonout = open("output/"+search+"/"+search+".json", "a")
-                        jsonout.write(  '"components": [')
-                        jsonout.write('\n')
-                        jsonout.write(json.dumps(response, indent=4, sort_keys=True))
-                        jsonout.write("],")
+                    with open('whitelists/whitelist.txt', 'r') as f:
+                        iocline = [line.rstrip() for line in f]
+                        match = ip['ipAddresses']
+                        if ip not in iocline:
+                            for value in match:
+                                data = {"query": value}
+                                url = ('https://api.passivetotal.org/v2/host-attributes/components')
+                                r = requests.get(url,  headers=self.headers, auth=(self.username, self.key), data=json.dumps(data))
+                                response = json.loads(r.text)
+                                jsonout = open("output/"+search+"/"+search+".json", "a")
+                                jsonout.write('\n')
+                                jsonout.write(  '"components": [')
+                                jsonout.write('\n')
+                                jsonout.write(json.dumps(response, indent=4, sort_keys=True))
+                                jsonout.write("],")
+                            for sunmatch in response['results']:
+                                with open('whitelists/sunlist.txt', 'r') as f:
+                                    sunline = [line.rstrip() for line in f]
+                                    suncomp = sunmatch['label']
+                                    sunaddress = sunmatch['address']
+                                    if suncomp in sunline:
+                                        print(style.UNDERLINE+style.CYAN+'!!!Potential SolarWinds Orion Sunburst item found!!! Logging to results.')
+                                        print(style.RESET+style.GREEN+'[IP] '+style.WHITE+ sunaddress+style.GREEN+' [Component] '+style.FAIL+suncomp+style.RESET )
+                                        jsonout = open("output/"+search+"/"+search+".json", "a")
+                                        jsonout.write('\n')
+                                        jsonout.write('Potential SolarWinds Orion Sunburst item found!')
         print(style.RESET)        
 
             
@@ -282,9 +346,10 @@ def menu():
         sunburst_finder = RiskIQ_Sunburst_Finder(username, key)
 
     while True:
+        
         sunburst_finder.show_menu()
         print ('\n')
-        choice = input(style.RESET+style.CYAN+'[MENU]'+style.RESET+style.BLUE+style.BOLD+' Enter Menu Selection' +style.RESET+style.BOLD+style.CYAN+' >> ').lower()
+        choice = input(style.RESET+style.CYAN+'[MENU]'+style.RESET+style.BLUE+style.BOLD+' Enter Menu Selection' +style.RESET+style.BOLD+style.CYAN+' ▶ '+style.RESET).lower()
         print ('\n')
         if choice == '1':
             sunburst_finder.sunburst_key()
