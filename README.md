@@ -1,4 +1,4 @@
-![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/raw/main/images/Main.png)
+![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/raw/main/images/Mainv2.png)
 ![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/raw/main/images/SunburstNotification.png)
 
 SunBurst Hunter 
