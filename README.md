@@ -1,4 +1,4 @@
-![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/Main.png)
+![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/Main_misp.png)
 ![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/SunburstNotification.png)
 
 SunBurst Hunter 
@@ -42,6 +42,8 @@ Complete required fields
 
     EMAIL = 'riskiq.com email'
     APIKEY = 'API Key'
+    misp_url = 'https://your.misp'
+    misp_key = 'enter your MISP user API key'
 
 
 
@@ -51,61 +53,9 @@ Usage
 All menu selections provide addtional instruction.  
      *File uploads require just a name 'file.txt'*  
 
-    $  python RiskIQ.Sunburst.Hunter.py
-```
-                                   `.-----..`
-                          `-/oydmNMMMMMMMMMMMNNmhso/.
-                      -+ymMMMMMMMMMMMMMMMMMMMMMMMMMMMNds/.
-                  .+hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNms:`
-               .+hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNMMMMMMMMMMMNy:
-             -yNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd.:odMMMMMMMMMMMMmo.
-           :hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMh`   hMMMMMMMMMMMMMMNs.
-         -hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMy`   /NMMMMMMMMMMMMMMMMNo`
-       `sNMMMMMMMMMMMm+mMMMMMMMMMMNdMMMMMMMMo`   /NMMMMohMMMMMMMNmmdmNm/
-      -dNNMMMMMMMMMMN: .dMMMMMMMd+-sMMMMMMMo    +NMMMMo `sMMNds:..```.:ss`
-     /Nm-:syyyyyyyyd:   hMMMMNy:` -sMMMMMN/   `/y++NMo   /Mh:`     `.:/:sd.
-    +Nm-        `.o+   .mMMmo-   `sNMMMMm:    ``  -md`   ss`    :shmNmo:/mm-
-   /MN:   ://+sydmy++--hNd+.   `/dNMMMMm-       `-sdo+:-oh`   `sNMMMMMm. :mm.
-  -NN:   /NMMMMMN+` `/ho-`     .::::sMm-     `-+hNy. `-dMo    sMMMmy+dM+  :Nd`
- `mN+   /NMMMMMM+   `o.             .d-   `  `hMMh`   /NMy    yMMy`  .y.  -NMs
- oMo   :mMMMMMMm`  `sMs...-::-`   `/h:   oy`  :NM:   /NMMN/   `+hh.   `  .dMMM-
-`NN.  :mMMMMMMM+  `yMMMNmNms-  `-odN/  `oMMh`  yh   +NMMMMN+`    .`     :dMMMMh
-+Mh  /NMMMMMMMMo `hMMMMMNs-  .+hNMMo  `sMMMMo` -h. +NMMMMMMMdo-.`````  `hMMMMMM.
-hMM++NMMMMMMMMMM+yMMMMms-  -smMMMMo  `yMMMMMMm+-hyoNMMMMMMMMMMMmddddd- `hMMMMMM/
-NMMMMMMMMMMMMMMMMMMMMy. `:yNMMMMMd  .hMMMMMMMMMdhMMMMMMMMMMMMMMMMMMMMm/sMMMMMMMs
-+                     ``-:          ./
-+ooooooooooooooooooo-`.+oooooooooo/.ooooooooooooooooooooooooooooooooooooooooooo/
-+----------------+:.:+--------------------------------------------------------+
-|         ██████╗ ██╗███████╗██╗  ██╗██╗ ██████╗       SunBURST Hunter        |
-|         ██╔══██╗██║██╔════╝██║ ██╔╝██║██╔═══██╗            ________         |
-|         ██████╔╝██║███████╗█████╔╝ ██║██║   ██║      ___  _\_____  \        |
-|         ██╔══██╗██║╚════██║██╔═██╗ ██║██║▄▄ ██║      \  \/ //  ____/        |
-|         ██║  ██║██║███████║██║  ██╗██║╚██API█╔╝       \   //       \        |
-|         ╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝╚═╝ ╚══▀▀═╝         \_/ \_______ \       |
-|                                                                    \/       |
-|░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▓█ MENU █▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░|
-⣿ ° SunBURSTHunter                                                            ⣿
-⣿                                                                             ⣿
-①     [Keyword] - SSL Certificate Keyword or Hostname Search                  ⣿
-②     [File Upload] - Upload list of hostnames to search                      ⣿
-⣿                                                                             ⣿
-⣿ ° SSL Certficate Extras                                                     ⣿
-⣿                                                                             ⣿
-③     [Fieldname] - SSL Certificate Fieldname Search                          ⣿
-⣿                                                                             ⣿
-⣿ RiskIQ SunBurst Threat Intelligence                                         ⣿
-⣿   https://community.riskiq.com/article/b5b13e5d                             ⣿
-⣿   https://community.riskiq.com/article/c98949a2                             ⣿
-⣿   https://community.riskiq.com/article/a786a113                             ⣿
-⣿   https://community.riskiq.com/article/a58a63e9                             ⣿
-⣿                                                                             ⣿
-Ⓠ  ° Quit                                                                     ⣿
-⣿                                                                             ⣿
-+▒▓█► Search History[5] ◄█▓▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░+
+    $  python RiskIQ.Sunburst.Hunter.MISP.py
 
-
-[MENU] Enter Menu Selection ▶
-```
+![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/RiskIQ.Sunburst.Hunter.MISP.gif)
 
 # Sample Output
 ![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/find_from_dga.png)

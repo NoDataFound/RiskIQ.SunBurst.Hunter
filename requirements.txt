@@ -1,2 +1,5 @@
 requests
 prompt_toolkit
+pymisp
+pathlib
+glob
