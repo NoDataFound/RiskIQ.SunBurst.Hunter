@@ -1,4 +1,4 @@
-![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/Main_misp.png)
+![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/raw/MISP/images/Main_misp.png)
 ![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/SunburstNotification.png)
 
 SunBurst Hunter 
@@ -55,7 +55,7 @@ All menu selections provide addtional instruction.
 
     $  python RiskIQ.Sunburst.Hunter.MISP.py
 
-![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/RiskIQ.Sunburst.Hunter.MISP.gif)
+![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/raw/MISP/images/RiskIQ.Sunburst.Hunter.MISP.gif)
 
 # Sample Output
 ![](https://github.com/NoDataFound/RiskIQ.SunBurst.Hunter/blob/master/images/find_from_dga.png)
