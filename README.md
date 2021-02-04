@@ -6,6 +6,13 @@ SunBurst Hunter
 
 ![](https://img.shields.io/badge/@CoryKennedy-SunBurst%7CResearch-blue)
 
+In the news!
+------------
+Original Tweet - https://twitter.com/CoryKennedy/status/1339707931235856384
+
+https://www.bleepingcomputer.com/news/security/the-solarwinds-cyberattack-the-hack-the-victims-and-what-we-know/
+https://www.securityweek.com/continuous-updates-everything-you-need-know-about-solarwinds-attack
+
 Introduction
 ------------
 
